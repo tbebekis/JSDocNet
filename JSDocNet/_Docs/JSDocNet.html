@@ -1,0 +1,1619 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>JSDocNet</title>
+
+    <style>
+        body {   
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 15px;
+            height: calc(100vh - 16px);
+        }
+
+        main {
+            display: flex;
+            position: relative;
+            height: calc(100% - 6px);
+            align-items: stretch;
+        }
+
+        aside {
+            position: relative;
+            width: 300px;
+            min-width: 300px;
+            height: 100%;
+        }
+
+        article {
+            position: relative;
+            overflow-y: scroll; 
+            overflow-x: hidden;
+            padding-left: 20px;
+            border-left: 1px solid lightgray;
+        }
+
+        section {
+            padding: 0 0 0 20px;
+        }
+
+        nav {
+            position: relative;
+            top: 2px;
+            width: 300px;
+            height: 100%;
+            overflow: auto;
+        }
+
+        h1 {
+            background-color: lightgoldenrodyellow;
+            padding: 30px 10px;
+            margin-right: 10px;
+        }
+
+        h2 {
+            background-color: lightblue;
+            padding: 20px 10px;
+            margin-right: 10px;
+        }
+
+        h4 {
+            background-color: lavender;
+            padding: 10px 10px;
+            margin-right: 10px;
+        }
+
+        code {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 16px;
+            background-color: lightgoldenrodyellow;
+            padding: 0 8px;
+        }
+
+        pre.syntax {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 15px;
+            background-color: whitesmoke;
+            color: navy;
+        }
+
+        pre.example {
+            font-family: "Courier New", Courier, monospace;
+            font-size: 15px;
+            background-color: whitesmoke;
+            color: maroon;
+        }
+    </style>
+</head>
+<body>
+    <main>
+    <aside>
+ 
+    <nav>
+        <ul>
+            <li><a href="#JSDocNet">JSDocNet</a></li>
+            <li><a href="#ConfigJson">The configuration file</a></li>
+            <li><a href="#Tutorials">Tutorials</a></li>
+            <li><a href="#TemplateModule">Template modules (plugins)</a></li>
+            <li><a href="#DefaultTemplateModule">Default Template module</a></li>
+
+            <li><a href="#Terminology">Terminology</a>
+                <ul>
+                    <li><a href="#DocLetTags">DocLet Tags</a></li>
+                    <li><a href="#MultiLineTags">Multi-line Tags</a></li>
+                    <li><a href="#FlagTags">Flag Tags</a></li>
+                    <li><a href="#ContextName">ContextName</a></li>
+                    <li><a href="#FullName">The Fullname</a></li>
+                </ul>
+            </li>
+            <li><a href="#Syntax">Syntax</a></li>
+            <li><a href="#TagReference">Tag Reference</a>
+                <ul>
+                    <li>DocLet Tags
+                        <ul>
+                            <li><a href="#Namespace">namespace</a></li>
+                            <li><a href="#Class">class</a></li>
+                            <li><a href="#Constructor">constructor</a></li>                            
+                            <li><a href="#Constant">constant</a></li>
+                            <li><a href="#Field">field</a></li>
+                            <li><a href="#Property">property</a></li>
+                            <li><a href="#Function">function</a></li>
+                            <li><a href="#Enum">enum</a></li>
+                            <li><a href="#Callback">callback</a></li>
+                            <li><a href="#Interface">interface</a></li>
+                        </ul>
+                    </li>
+
+                    <li>Flag Tags
+                        <ul>
+                            <li><a href="#Static">static</a></li>
+                            <li><a href="#ReadOnly">readonly</a></li>
+                            <li><a href="#BitField">bitfield</a></li>
+                            <li><a href="#EventArgs">eventargs</a></li>
+                            <li><a href="#Deprecated">deprecated</a></li>
+                        </ul> 
+                    </li>
+
+                    <li>List Tags (presented as a list)
+                        <ul>
+                            <li><a href="#Throws">throws</a></li>
+                            <li><a href="#Fires">fires</a></li>
+                            <li><a href="#Example">example</a></li>
+                            <li><a href="#See">see</a></li>
+                            <li><a href="#Tutorial">tutorial</a></li>
+                        </ul> 
+                    </li>
+                    
+                    <li>Other Tags
+                        <ul>
+                            <li><a href="#MemberOf">memberof</a></li>
+                            <li><a href="#Name">name</a></li>
+                            <li><a href="#Description">description</a></li>
+                            <li><a href="#Implements">implements</a></li>
+                            <li><a href="#Extends">extends or augments</a></li>
+                            <li><a href="#Category">category</a></li>
+                            <li><a href="#Type">type</a></li>
+ 
+                            <li><a href="#Access">access</a></li>
+                            <li><a href="#Param">param</a></li>
+                            <li><a href="#Return">return</a></li>
+                            <li><a href="#Default">default</a></li>          
+ 
+                        </ul> 
+                    </li>
+ 
+                </ul>
+            </li>
+ 
+
+        </ul>
+    </nav>
+    </aside>
+
+    <article>
+
+    <h1 id="JSDocNet">JSDocNet</h1>
+    
+    <section>
+    <p>JSDocNet is an API documentation generator for JavaScript, using a comment syntax quite similar to <a href="http://usejsdoc.org/">JSDoc</a> syntax.
+    </p>
+
+    <p>JSDocNet is a C# desktop application. The user specifies a json configuration file and clicks on an execute button in order to generate the documentation.
+        The application remembers the configuration files used in the past, so the user has just to choose one from a drop-down list.
+        </p>
+
+    <p>Alternatively the configuration file can be passed as a command line argument, in which case no user interface is presented.</p>
+
+    <p>The goal of the JSDocNet is to be as easy as possible, both in syntax and usage, and compatible with the <a href="https://www.visualstudio.com/">Microsoft Visual Studio</a> 
+        <a href="https://msdn.microsoft.com/en-us/library/bb385682.aspx">javascript intellisense</a>. </p>
+    </section>
+
+
+
+    <h2 id="ConfigJson">The configuration file</h2>
+    <section>
+        <p>The <strong>JSDocNet</strong> generates documentation based on settings provided by a .json configuration file. The name of the file is irrelevant.</p>
+        <p>There are two ways to pass that configuration file to the JSDocNet:</p>
+        <ol>
+            <li>
+                using the command line as <code>\path\to\JSDocNet.exe \path\to\myconfig.json</code>
+            </li>
+            <li>using the intuitive UI of the JSDocNet.</li>
+        </ol>
+        <p>Here is a sample comfiguration file</p>
+
+        <pre class="example">
+
+    {
+      "OutputFolder": ".\\DocDefault",
+      "DeleteExistingOutput": true,
+      "Template": "Default",
+      "IncludePathList": [ ".\\" ],
+      "IncludePattern": ".+\\.js?$",
+      "ExcludePattern": ".+(?i)es5\\.js|.+min\\.js|.+old*.+\\.js|.+polyfill*.+\\.js",
+      "DocTitle": "Default Doc Title",
+      "FooterText": "Documentation Footer",
+      "DisplayDate": true,
+      "TutorialsFolder": ".\\DocSource\\Tutorials",
+      "TutorialList": [
+        "Tutorial_tp|tp Tutorial|General"
+      ],
+      "HomePagePath": ".\\DocSource\\Index.html"
+    }
+    </pre>
+
+        <p><strong>OutputFolder: </strong>Optional. The output folder where the generated documentation is placed. Defaults to .\DocDefault</p>
+        <p><strong>DeleteExistingOutput: </strong>Optional. Delete existing output folder. Defaults to true.</p>
+        <p><strong>Template: </strong>Optional. The name of the <a href="#TemplateModule">documentation template module</a> to use in generating documentation files. Empty or default, means the default template module.</p>
+        <p>
+            External documentation template modules are loaded at the application startup,
+            scanning any .Net assembly found in the application folder, having a file name like dtm_XXXXXX.dll (<i><strong>dtm</strong> stands for Documentation Template Module</i>)
+            and gathering types implementing the <code>IDocTemplateModule</code> interface.
+        </p>
+        <p><strong>IncludePathList: </strong>Required. A list of folders or files. All these are included in parsing.</p>
+        <p><strong>IncludePattern: </strong>Required. A regular expression. All files/folders, specified by the IncludePathList setting, that match to this setting are included in parsing. Empty means all. </p>
+        <p><strong>ExcludePattern: </strong>Required. A regular expression. All files/folders, specified by the IncludePathList setting, that match to this setting are excluded from parsing. Empty means no excludes. </p>
+        <p><strong>DocTitle: </strong>Required. Documentation title.</p>
+        <p><strong>FooterText: </strong>Required. Footer text.</p>
+        <p><strong>DisplayDate: </strong>Required. True means display the generation date in footer. Defaults to true.</p>
+        <p><strong>TutorialsFolder: </strong>Optional. The folder where the tutorials can be found. The user may provide <a href="#Tutorials">tutorials</a>, as .html pages, to be included in the documentation.</p>
+        <p><strong>TutorialList: </strong>Optional. A string list where each entry has the format <code>TutorialName|TutorialTitle|TutorialCategory</code>. Used to create links (anchors) for the tutorials in the generated html.
+        <p><strong>HomePagePath: </strong>Optional. The full path to an .html file to be used as content for the index.html of the generated documentation. </p>
+    </section>
+
+
+
+
+    <h2 id="Tutorials">Tutorials</h2>
+    <section>
+        <p>A tutorial is just an .html file placed in the <strong>TutorialsFolder</strong> as specified in the <a href="#ConfigJson">configuration file</a>.</p>
+
+        <p>A tutorial is referenced in a documenation comment using the <a href="#Tutorial"><strong>@tutorial</strong></a> tag</p>
+        <p>Tutorials provide more detailed information about a code feature than a <a href="#Terminology">DocLet</a>. A tutorial may concern a single feature, such as a function or property, cover a whole concept, or document a step by step process. </p>
+        <p>JSDocNet accepts as tutorials just plain .html files without the html, head and body tags. </p>
+        <p>Here is the simplest, but valid, tutorial example: </p>
+
+        <pre class="example">
+
+    &lt;div&gt;
+        Here goes the text and the examples of the tutorial
+    &lt;/div&gt;
+    </pre>
+
+    </section>
+
+
+
+    <h2 id="TemplateModule">Template modules (plugins)</h2>
+    <section>
+    <p>
+        The JSDocNet just parses the specified .js files and produces a tree of <strong>DocItem</strong> class instances.
+        When it comes to actual documentation generation and .html file creation it relies to a, so called, <strong>template module</strong>.
+    </p>
+
+    <p>Is the template module that generates the actual documentation and the html files, leveraging the produced tree of DocItem class instances.</p>
+
+    <p>A template module is a class that implements the <strong>IDocTemplateModule</strong> interface.</p>
+
+    <pre class="example">
+
+    // Represents an object that generates the actual documentation
+    public interface IDocTemplateModule
+    {
+
+        // It is passed the parser results in order to generate the actual documentation
+        void Execute(DocContext Context);
+
+        // The name for this template module, e.g. Default
+        string Name { get; }
+    }
+    </pre>
+
+    <p>
+        The JSDocNet contains a default implementation of the IDocTemplateModule, called the default template.
+        A user may opt to provide his own implementation of that interface, in an external module (plugin).
+    </p>
+
+    <p>
+        External documentation template modules are loaded at the application startup,
+        scanning any .Net assembly found in the application folder, having a file name like dtm_XXXXXX.dll (<i><strong>dtm</strong> stands for Documentation Template Module</i>)
+        and gathering types implementing the <code>IDocTemplateModule</code> interface.
+    </p>
+    </section>
+
+
+
+
+    <h2 id="DefaultTemplateModule">Default Template module</h2>
+    <section>
+        <p>By default the JSDocNet uses the built-in Default Template Module when generating documentation files. The Default Template is always available.</p>
+
+        <p>
+            The Default Template module uses template html files. The user may modify those template html files and especially the Layout.html file.
+            It may also modify the .css files used by the Default Template module in order to generate a documentation of his choise.
+        </p>
+    </section>
+
+
+
+
+
+
+    
+    <h2 id="Terminology">Terminology</h2>
+    <section>
+    <p>A documentation comment is called <strong>DocLet</strong> by this javascript documentation generator application. 
+    A DocLet, a documentation comment, may contain a number of tags.  
+    </p>
+
+    <p>A <strong>tag</strong> is a word prefixed by the at character e.g. <strong>@tag</strong>.
+        Tags fall in two major categories: <strong>block</strong> tags and <strong>inline</strong> tags. 
+    </p>
+    
+    <p><strong>Block</strong> tags must be placed at the start of the line. Leading space and star characters are ignored. The tag place order is insignificant. 
+    </p>
+    
+    <p>Block tags belong to one or more categories, such as doclet tags, single-line tags, multi-line tags, flag tags. 
+    </p>
+
+    <p><strong>Inline</strong> tags are tags that can be placed inside text. There are just two inline tags:</p>
+        <ul>
+            <li>link</li>
+            <li>turorial</li>
+        </ul>
+    <p>The <code>@tutorial</code> tag is considered a Block tag when it is placed at the start of the line.</p>
+     
+
+    </section>
+
+    <h4 id="DocLetTags">DocLet Tags</h4>
+    <section>
+        <p>
+            <strong>DocLet</strong> tags identify the whole documentation comment and the code item being documented. A documentation comment must contain just a single DocLet tag.
+            DocLet tags may have or may have not a value.
+            When a DocLet tag provides a value, then that value is the name of the code item being documented.
+            Such a name may be prefixed by its <code>memberof</code>, e.g. <code>tp.Classes.MyClass</code> is parsed as <code>name=MyClass</code> and <code>memberof=tp.Classes  </code>
+        </p>
+
+        <p>
+            <strong>NOTE:</strong> Name in <strong>DocLet</strong> tags is optional. When a DocLet tag does not specify a name and the <strong>@name</strong> tag is ommited, then the parser parses the next two lines after the end of the comment and tries to come up with a name.
+</p>
+
+        <p>A DocLet tag may provide the description text after the name </p>
+
+        <p><strong>DocLet</strong> tags are the following:</p>
+
+        <ul>
+            <li>namespace  </li>
+            <li>class      </li>
+            <li>constructor</li>
+            <li>constant   </li>
+            <li>field      </li>
+            <li>property   </li>
+            <li>function   </li>
+            <li>enum       </li>
+            <li>callback   </li>
+            <li>interface</li>
+        </ul>
+
+        <p>The following DocLet tags use this syntax: <code>@tag [MemberOf.]Name [Description]</code></p>
+        <ul>
+            <li>namespace  </li>
+            <li>class      </li>
+            <li>constant   </li>
+            <li>field      </li>
+            <li>property   </li>
+            <li>function   </li>
+            <li>enum       </li>
+            <li>callback   </li>
+            <li>interface</li>
+        </ul>
+
+        <p>The <code>@constructor</code> DocLet tag alone uses this syntax: <code>@tag [MemberOf.] [Description]</code></p>
+
+        <p>The following DocLet tags may need to provide a type and so they can use this syntax too: <code>@tag {Type} [MemberOf.]Name [Description]</code> </p>
+        <ul>
+            <li>constant   </li>
+            <li>field      </li>
+            <li>property   </li>
+            <li>enum       </li>
+        </ul>
+
+        <p>The optional <strong>@name</strong> tag may be used in providing the name of the code item, e.g <code>@name MyClass</code> .</p>
+        <p>
+            <strong>NOTE:</strong> When the @name tag is ommited and the DocLet tag does not specify a name, then the parser parses the next two lines after the end of the comment and tries to come up with a name.
+        </p>
+
+    </section>
+ 
+    <h4 id="MultiLineTags">Multi-line Tags</h4>
+    <section>
+        <p>Tags that provide a description text and the <strong>@example</strong> tag, may span to multiple lines. The following are the multi-line tags:
+        </p>
+        <ul>
+            <li>namespace</li>
+            <li>class</li>
+            <li>function</li>
+            <li>callback</li>
+            <li>interface</li>
+
+            <li>enum</li>
+            <li>constant</li>
+            <li>field</li>            
+            <li>property</li>
+
+            <li>description</li>
+            <li>param</li>
+            <li>return</li>
+            <li>fires</li>
+            <li>throws</li>
+            <li>example</li>
+        </ul>
+
+
+    </section>
+
+    <h4 id="FlagTags">Flag Tags</h4>
+    <section>
+        <p><strong>Flag</strong> tags have no value at all. They just mark the code item giving it a special meaning. <strong>Flag</strong> tags are the following:  
+        </p>
+
+        <ul>
+            <li>function (<i>when used inside a namespace or enum DocLet tag in order to denote the existing of a function with the same name</i>)</li>
+            <li>static    </li>
+            <li>readOnly  </li>
+            <li>bitfield  </li>
+            <li>eventargs </li>
+            <li>deprecated</li>
+        </ul>
+    </section>
+         
+    <h4 id="ContextName">ContextName</h4>
+    <section>
+        <p>When the <strong>@memberof</strong> tag is empty, or not provided at all, then the name of the last container tag is used (called the <strong>ContextName</strong> internally).</p>
+        <p>If ContextName is empty, then the global namespace is assumed. </p>
+        <p>Setting a value to the <strong>@memberof</strong> tag, assigns the internal ContextName too.</p>
+        
+    </section>
+
+    <h4 id="FullName">The Fullname</h4>
+    <section>
+        <p>The notion of the fullname applies to DocLet tags and code items. The fullname includes the full path of the item. Where the name is just the name of the item.</p>
+
+        <p>That is for a class named <code>A</code> which is a member of the <code>tp</code> namespace the fullname is <code>tp.A</code>.</p>
+    </section>
+ 
+                  
+    <h2 id="Syntax">Syntax</h2>          
+    <section>
+    <p>A DocLet, that is a documentation comment, uses a syntax, more or less, similar to the <a href="http://usejsdoc.org/">JSDoc</a> syntax.</p>
+    <pre class="example">
+
+    /** This is the description
+    @tag1
+    @tag2
+    @tagN
+    */ 
+    </pre>
+
+    <pre class="example">
+
+    /**  
+    @single-line-tag1
+    @single-line-tag2
+        When the <strong>@description</strong> tag is not provided then text lines following any single-line tag are considered the description.
+    */ 
+    </pre>
+
+    <p>Here is a more realistic examle:</p>
+    <pre class="example">
+
+    /**
+    @function Func
+    @static
+    @description this is the Func description
+    @param {String} S - A string
+    @param {Number} N - A number
+    @param {Boolean} B - A boolean
+    @param {Element|String} [ElementOrSelector=document] - Optional. A DOM element or a selector. Defaults to document.
+    @return {Element} Returns an element or null.
+    @see {@link https://stackoverflow.com|StackOverflow}
+    @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript|MDN}
+    @tutorial Tutorial_tp
+    @category Strings
+    @example 
+        // javascript code here
+    */
+    </pre>
+
+        <p><strong>NOTE: </strong>When the <strong>@description</strong> tag is not provided then text lines following any single-line tag are considered the description.</p>
+    </section>           
+            
+            
+    <h2 id="TagReference">Tag Reference</h2>            
+               
+    <h4 id="Namespace">@namespace</h4>
+
+    <section>
+    <p>Marks a namespace. A namespace always belongs to global namespace. The <strong>memberof</strong> has no effect at all.</p>
+
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @namespace
+    @namespace Name
+    @namespace Description
+    @namespace Name Description
+    </pre>
+
+    <h5>Examples</h5>
+     <pre class="example">
+
+    /** This is the description
+    @namespace NS
+    */
+     </pre>       
+
+     <pre class="example">
+
+    /** @namespace NS This is the description */
+     </pre>  
+
+    <p>A namespace may provide a function with the same name as the namespace itself. In that case the <code>@function</code> tag is used, in order to denote the presence of such a function.
+        Consider the following javascript code.</p>
+
+    <pre class="example">
+
+    /** 
+    @namespace global.tp  
+    @function 
+    @description This item is 3 things, a namescpace, a static class and a function  
+    Here is the function
+    @param {String|Element|tp.A} Selector - A selector or an element
+    @return {Element}
+    */        
+    var tp = (function () {
+        function Class(Selector) {
+            // code here
+        }
+
+        var _ = Class; 
+ 
+        /** 
+        @function Func1 This is a function description
+        @category Date
+        */
+        _.Func1 = function () { };
+
+        return Class;
+ 
+    })();
+
+
+    // or 
+
+
+    @namespace global.tp2   
+    @function 
+    @description This item is 3 things, a namescpace, a static class and a function  
+    Here is the function
+    @param {String|Element|tp.A} Selector - A selector or an element
+    @return {Element}
+    */   
+    var tp2 = function(Selector) {
+        // code here
+    };
+
+    /** 
+    @function Func1 This is a function description
+    @memberof tp2
+    */
+    tp2.Func1 = function () { };
+    </pre>
+    </section>
+
+
+    <h4 id="Class">@class</h4>
+    <section>
+    <p>Marks a class</p>
+
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @class
+    @class Name
+    @class Description
+    @class Name Description
+    @class MemberOf.Name        
+    @class MemberOf.Name Description 
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @class tp.Static
+    @static
+    This is a static class.  
+    */
+    </pre>    
+
+    <pre class="example">
+
+    /**
+    @class tp.Args
+    @eventargs
+    */
+    </pre>
+
+    <pre class="example">
+
+    /** 
+    @class tp.A
+    A base class
+    @extends Object
+    @fires {tp.Args|OnAnyEvent} This is the description text
+    @fires {tp.Args|OnUserNameChanged} Description of the event
+    */
+    </pre>
+
+    
+
+    </section>
+
+
+    <h4 id="Constructor">@constructor</h4>
+    <section>
+    <p>Marks a constructor of a non-static class</p>
+
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @constructor Description
+    @constructor MemberOf Description
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @constructor tp.A
+    */
+    </pre>
+
+    <pre class="example">
+
+    /**
+    @constructor tp.Args
+    @param {String} [Value] - Optional. A string value
+    */
+    </pre>
+    </section>
+
+
+    <h4 id="Constant">@constant</h4>
+    <section>
+    <p>Marks a namespace, class or interface constant</p>
+
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @constant
+    @constant Name
+    @constant Description
+    @constant Name Description
+    @constant MemberOf.Name        
+    @constant MemberOf.Name Description 
+
+    @constant {Type} Name
+    @constant {Type} Name Description
+    @constant {Type} MemberOf.Name        
+    @constant {Type} MemberOf.Name Description
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @enum {Integer} tp.Color - An enumeration type
+    @bitfield
+    */
+    tp.Color = {
+        /** 
+        @constant tp.Color.Red
+        @default 2
+        */
+        get Red() { return 2; },
+        /** 
+        @constant Green
+        @default 4
+        */
+        get Green() { return 4; },
+        /** 
+        @constant tp.Color.Blue
+        @default 8
+        */
+        get Blue() { return 8; },
+    }
+    </pre>
+
+
+    </section>
+
+
+
+    <h4 id="Field">@field</h4>
+    <section>
+    <p>Marks a namespace, class or interface field</p>
+
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @field
+    @field Name
+    @field Description
+    @field Name Description
+    @field MemberOf.Name        
+    @field MemberOf.Name Description
+
+    @field {Type} Name
+    @field {Type} Name Description
+    @field {Type} MemberOf.Name        
+    @field {Type} MemberOf.Name Description
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    var ReadOnlyClass = {
+        /** 
+        @field 
+        @type String
+        @access private 
+        This is a private field. 
+        No name is provided here. The parser will parse the next lines and will determine the name.
+        @default '' 
+        */
+        fUserName : '',
+        
+        get UserName() { return fUserName; },
+    };
+    </pre>
+    </section>
+
+
+
+
+
+
+
+    <h4 id="Property">@property</h4>
+    <section>
+    <p>Marks a namespace, class or interface property</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @property
+    @property Name
+    @property Description
+    @property Name Description
+    @property MemberOf.Name        
+    @property MemberOf.Name Description 
+
+    @property {Type} Name
+    @property {Type} Name Description
+    @property {Type} MemberOf.Name        
+    @property {Type} MemberOf.Name Description
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @property {String} EventName - The event name
+    @default ''
+    @memberof tp.Args
+    */
+    </pre>
+   
+
+    <pre class="example">
+
+    var tp2 = {
+        /** @constant {String} Version - The version of the library.  
+        
+            A constant or field or property can be written using the short format, as  @tag {Type} Name - Description  
+            @default 2017.06.23.123
+        */
+        Version: '2017.06.23.123',
+
+        /**
+        @property Prop2
+        @type String
+        @default Tripous
+        @description This is property 2  
+
+        A constant or field or property can be written using the long format where the DocLet tag, the type tag, the name tag, and the description tag are placed in different lines
+        */
+        Prop2: 'Tripous',
+    };
+    </pre>
+    </section>
+
+
+
+    <pre class="example">
+
+    var tp = (function () {
+        function Class(Selector) {
+            // code here
+        }
+
+        var _ = Class;  
+
+        /** 
+        @constant {String} tp.DateDelimiter - This is the DateDelimiter description. Here the short syntax is used.
+        @default -  
+        */
+        Object.defineProperty(_, 'DateDelimiter', {
+            value: '-',
+            writable: false,
+            enumerable: false,
+            configurable: false,
+        });
+
+
+        /** This is the Version property description. Here the long syntax is used.
+        @property tp.Version
+        @type String
+        @readonly
+        @default 2017.06.15.1204 
+        */
+        Object.defineProperty(_, 'Version',   {
+            get: function() { return '2017.06.15.1204 '; },
+            enumerable: false,
+            configurable: false,
+        });
+
+        /** 
+        @property UserName
+        @type String
+        */
+        Object.defineProperty(_, 'UserName', {
+            get: function () { return _.fUserName; },
+            set: function (v) { _.fUserName = v;},
+            enumerable: false,
+            configurable: false,
+        });
+
+        return Class;
+ 
+    })();
+
+    </pre>
+
+
+
+
+
+
+
+
+
+    <h4 id="Function">@function</h4>
+    <section>
+    <p>Marks a function (not a constructor)</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @function
+    @function Name
+    @function Description
+    @function Name Description
+    @function MemberOf.Name        
+    @function MemberOf.Name Description 
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @function Func
+    @static
+    @description this is the Func description
+    @param {String} S - A string
+    @param {Number} N - A number
+    @param {Boolean} B - A boolean
+    @param {Element|String} [ElementOrSelector=document] - Optional. A DOM element or a selector. Defaults to document.
+    @return {Element} Returns an element or null.
+    @see {@link https://stackoverflow.com|StackOverflow}
+    @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript|MDN}
+    @tutorial Tutorial_tp
+    @category Strings
+    @example 
+        // javascript code here
+    */
+    </pre>
+    </section>
+
+
+    <h4 id="Enum">@enum</h4>
+    <section>
+    <p>Marks an enumeration type. An enumeration type is usually an object literal with just integer constants.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @enum
+    @enum Name
+    @enum Description
+    @enum Name Description
+    @enum MemberOf.Name        
+    @enum MemberOf.Name Description 
+
+    @enum {Type} Name
+    @enum {Type} Name Description
+    @enum {Type} MemberOf.Name        
+    @enum {Type} MemberOf.Name Description
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @enum {Integer} tp.Color - An enumeration type
+    @bitfield
+    */
+    tp.Color = {
+        /** 
+        @constant tp.Color.Red
+        @default 2
+        */
+        get Red() { return 2; },
+        /** 
+        @constant Green
+        @default 4
+        */
+        get Green() { return 4; },
+        /** 
+        @constant tp.Color.Blue
+        @default 8
+        */
+        get Blue() { return 8; },
+    };
+    </pre>
+    </section>
+
+
+
+    <h4 id="Callback">@callback</h4>
+    <section>
+    <p>Defines a callback function. A callback function does not exist in reality. It is just documented (commented) somewhere in the code just for the documentation. </p>
+    <p>Callback functions and interfaces, normally, have no associated code item.  
+      The presence of a DocLet always generates a documentation item. The actual code item is not required.
+    </p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @callback
+    @callback Name
+    @callback Description
+    @callback Name Description
+    @callback MemberOf.Name        
+    @callback MemberOf.Name Description 
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+      @callback FilterFunc
+      @param {Array} A - The array to operate on.
+      @param {Object} Item - The array element to inspect.
+      @return {Boolean} Returning true means that the passed object passes the filter condition.
+      @memberof global
+      @description Applies a filter condition to an array element and returns true if the element passes the condition.
+  
+      Callback functions and interfaces, normally, have no associated code item.  
+      The presence of a DocLet always generates a documentation item. The actual code item is not required. 
+     */
+    </pre>
+    </section>
+
+
+
+
+
+
+
+    <h4 id="Interface">@interface</h4>
+    <section>
+    <p>Defines an interface. An interface does not exist in reality. It is just documented (commented) somewhere in the code just for the documentation. </p>
+    <p>Interfaces and callback functions, normally, have no associated code item.  
+      The presence of a DocLet always generates a documentation item. The actual code item is not required.
+    </p>
+   
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @interface
+    @interface Name
+    @interface Description
+    @interface Name Description
+    @interface MemberOf.Name        
+    @interface MemberOf.Name Description  
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @interface IListener
+    Represents an object that listens for notifications from a notifier
+    */
+ 
+
+    /**
+      @function OnNote Called by the notifier when sends a note.
+      @param {tp.Args} Note - The note  send by the notifier.
+      @return {Boolean} Returning true means the note is handled.
+      @memberof IListener 
+     */
+    </pre>
+    </section>
+
+
+
+
+ 
+
+
+    <h4 id="Static">@static</h4>
+    <section>
+    <p>Marks a class as static. Marks a constant, field, property or function as a static member. </p>
+
+    <p>All namespace members are considered static. Enum classes are considered static also.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @static 
+    </pre> 
+    </section>
+
+
+    <h4 id="ReadOnly">@readonly</h4>
+    <section>
+    <p>Marks a property as a read-only property. </p>
+
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @readonly 
+    </pre> 
+    </section>
+
+
+    <h4 id="BitField">@bitfield</h4>
+    <section>
+    <p>Marks an enum class as a bit-field. </p>
+
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @bitfield 
+    </pre> 
+    </section>
+
+
+
+    <h4 id="EventArgs">@eventargs</h4>
+    <section>
+    <p>Marks a class as event arguments, in order to indicate that objects of that class are passed to event handlers as parameters. </p>
+
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @eventargs 
+    </pre> 
+    </section>
+
+
+
+    <h4 id="Deprecated">@deprecated</h4>
+    <section>
+    <p>Marks a code item as deprecated. </p>
+
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @deprecated 
+    </pre> 
+    </section>
+        
+
+
+
+    <h4 id="Throws">@throws</h4>
+    <section>
+    <p>Marks a constructor, function or property. A property may throw an error when its getter or setter function is called.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @throws {Type}
+    @throws {Type} Description
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @function Func A very useful function 
+    @throws {Error} Throws an Error error when something bad happens.
+    @throws {MyErrorObject} Throws a MyErrorObject error when something very bad happens.
+    @throws {JustAnError}
+    */
+    </pre>
+    </section>
+
+
+    <h4 id="Fires">@fires</h4>
+    <section>
+    <p>Marks a class. Used in documenting the events of a class. A class may provide a code mechanism to be used by listener objects in order to attach their event handlers to the events that class emits.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @fires {Type|Name}
+    @fires {Type|Name} Description
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @class tp.A
+    A base class
+    @extends Object
+    @fires {tp.Args|OnAnyEvent} This is the description text
+    @fires {tp.Args|OnUserNameChanged} Description of the event
+    */
+    </pre>
+    </section>
+
+
+
+    <h4 id="Example">@example</h4>
+    <section>
+    <p>Marks any DocLet tag, that is a namespace, class, interface, constructor, function, constant, field, property, callback or enum class.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @example 
+        // example javascript code here
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @function EnumToString
+    Returns the name of an enum value    
+    @example
+        var Color = { Red: 1, Green: 2, Blue: 4 };
+        var S = tp.Bf.EnumToString(Color, Color.Green); // returns 'Green'
+    @param {Object} EnumType 
+    @param {Integer} Value
+    @return {String} 
+     */
+    </pre>
+    </section>
+
+
+
+
+    <h4 id="See">@see</h4>
+    <section>
+    <p>Marks any DocLet tag, that is a namespace, class, interface, constructor, function, constant, field, property, callback or enum class.</p>
+    <p>Actually the <strong>@see</strong> block tag uses a <strong>@link</strong> inline tag in order to denote the reference.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @see  {@link Url|Title}         
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function Func
+    @see {@link https://stackoverflow.com|StackOverflow}
+    @see {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript|MDN}
+    */
+    </pre>
+    </section>
+
+
+
+
+    <h4 id="Tutorial">@tutorial</h4>
+    <section>
+    <p>Marks any DocLet tag, that is a namespace, class, interface, constructor, function, constant, field, property, callback or enum class.</p>
+    <p>Actually the <strong>@tutorial</strong> tag consists of the tag itself and a <strong>tutoria Id</strong>. For more information on tutorials check <a href="#ConfigJson">the config.json configuration file</a>  </p>
+
+        
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @tutorial TutorialId         
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function Func 
+    @tutorial HowToUseTheFunc
+    @tutorial HowToBetterUseTheFunc
+    */
+    </pre>
+    </section>
+
+
+
+    <h4 id="MemberOf">@memberof</h4>
+    <section>
+    <p>Marks a class, constructor, function, constant, field, property or enum class. Indicates the membership of a code item to another code item.</p>
+    <p>Actually the <strong>@memberof</strong> tag consists of the tag itself and the name of the code item container. For more information on the @memberof check <a href="#ContextName">the ContextName</a>  </p>
+
+ 
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @memberof Name
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @property {String} EventName - The event name
+    @default ''
+    @memberof tp.Args
+    */
+    </pre>
+
+    <pre class="example">
+
+    /** This is a global function
+    @function GlobalFunc
+    @param {Object} ...Values - A function with a repeatable parameter
+    @memberof global 
+    */
+    function GlobalFunc(Values) {
+    }
+    </pre>
+    </section>
+
+
+
+
+    <h4 id="Name">@name</h4>
+    <section>
+    <p>Marks any DocLet tag, that is a namespace, class, interface, constructor, function, constant, field, property, callback or enum class.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @name Name         
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function 
+    @name Func
+    */
+    </pre>
+    </section>
+
+
+
+
+
+    <h4 id="Description">@description</h4>
+    <section>
+    <p>Marks any DocLet tag, that is a namespace, class, interface, constructor, function, constant, field, property, callback or enum class.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @description Description         
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function Func
+    @description This is a description 
+    */
+    </pre>
+    </section>
+
+
+
+    <h4 id="Implements">@implements</h4>
+    <section>
+    <p>Marks a class. Indicates the interface or interface a class implements.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @implements Interface1 [Interface2 [InterfaceN] ... ]         
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @class tp.B
+    @implements IListener
+    */
+    </pre>
+    </section>
+
+
+
+    <h4 id="Extends">@extends or @augments</h4>
+    <section>
+    <p>Marks a class. Indicates that a class inherits from another class.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @implements Interface1 [Interface2 [InterfaceN] ... ]         
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /**
+    @class tp.B
+    @augments tp.A
+    A derived class
+    */
+    </pre>
+    </section>
+
+
+
+    <h4 id="Category">@category</h4>
+    <section>
+    <p>Marks a class of function. A <a href="#TemplateModule">template module (external plugin)</a> may opt to display classes or functions in a categorized manner.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @category Name        
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function Func1 This is a function description
+    @category Date
+    */
+    _.Func1 = function () { };
+    </pre>
+    </section>
+
+ 
+    <h4 id="Type">@type</h4>
+    <section>
+    <p>Marks a field, property or enum class.  </p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @type TypeFullName        
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @field fUserName
+    @type String
+    @default '' 
+    */
+    _.fUserName = '';
+    </pre>
+
+    <pre class="example">
+
+    /**
+    @enum tp.Color - An enumeration type
+    @type Integer
+    @bitfield
+    */
+    tp.Color = {
+        /** 
+        @constant tp.Color.Red
+        @default 2
+        */
+        get Red() { return 2; },
+        /** 
+        @constant Green
+        @default 4
+        */
+        get Green() { return 4; },
+        /** 
+        @constant tp.Color.Blue
+        @default 8
+        */
+        get Blue() { return 8; },
+    };
+    </pre>
+    </section>
+
+
+
+
+    <h4 id="Access">@access</h4>
+    <section>
+    <p>Marks a constant, field, property or function. Indicates the encapsulation level (visibility) of the code item. Private, protected and public are considered valid values for the tag.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @access private|protected|public
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @field {String} fUserName - This is a private field
+    @access private 
+    @default '' 
+    */
+    _.fUserName = '';
+    </pre>
+
+ 
+    </section>
+
+
+
+
+
+    <h4 id="Param">@param</h4>
+    <section>
+    <p>Documents the parameter of a function, constructor or callback.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @param {TypeFullName} Name    
+    @param {TypeFullName} Name Description
+
+    @param {TypeFullName1|TypeFullName2} Name               // to indicate that multiple types are acceptable
+    @param {TypeFullName} [Name]                            // to indicate an optional parameter
+    @param {TypeFullName} [Name='tripous']                  // to indicate an optional parameter with a default value
+    @param {...TypeFullName} Name                           // to indicate an repeatable parameter 
+    @param {TypeFullName} ...Name                           // to indicate an repeatable parameter
+
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function Func
+    @param {String} 
+    */
+    function Func(Value) {
+    }
+    </pre>
+
+ 
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function Func
+    @param {String} Value - This is a required parameter
+    */
+    function Func(Value) {
+    }
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function Func
+    @param {String} [Value='tripous'] - This is an optional parameter with a default value
+    */
+    function Func(Value) {
+    }
+    </pre>
+
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function Func
+    @param {Object} ...args - This is a repeatable parameter
+    */
+    function Func(args) {
+    }
+    </pre>
+         
+
+    </section>
+
+
+
+
+
+
+    <h4 id="Return">@return</h4>
+    <section>
+    <p>Documents the return value of a function or callback.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @return {TypeFullName}     
+    @return {TypeFullName} Description
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @function Func
+    @param {String}
+    @return {Object} - Returns an object
+    */
+    function Func(Value) {
+    }
+    </pre>        
+         
+
+    </section>
+
+
+
+    <h4 id="Default">@default</h4>
+    <section>
+    <p>Documents the value of a constant, and the initial value of a field or property.</p>
+    
+    <h5>Syntax</h5>
+    <pre class="syntax">
+
+    @default Value     
+    </pre>
+
+    <h5>Examples</h5>
+    <pre class="example">
+
+    /** 
+    @field {String} fUserName 
+    @default '' 
+    */
+    _.fUserName = '';
+    </pre>        
+         
+
+    </section>
+
+
+
+
+ 
+
+
+ 
+
+   </article>
+    </main>
+
+ 
+
+
+</body>
+</html>

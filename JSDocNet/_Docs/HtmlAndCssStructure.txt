@@ -1,0 +1,63 @@
+﻿---------------------------------------------------------
+Namespace, Class, Enum
+---------------------------------------------------------
+TopItem
+	TopItemTitle
+		TopItemType
+		TopItemName
+__ID__
+__TOP_ITEM_CLASS__
+__ITEM_TYPE__
+__ITEM_NAME__
+
+__DESCRIPTION__
+__SAME_NAME_FUNCTION__
+
+---------------------------------------------------------
+for Lists inside a TopItem 
+    Namespace 	: Constants, Fields, Properties, Classes (names only), Enums (names only), Functions, Callbacks
+    Class 	: Constructor, Constants, Fields, Properties, Functions, Events
+    Enum 	: Constants, Fields, Properties, Functions
+---------------------------------------------------------
+List               
+	ListTitle
+	ListItems
+
+__LIST_CLASS__
+__LIST_TITLE__
+__LIST_ITEMS__
+
+	Item
+		ItemTitle
+		ItemName
+
+__ITEM_NAME__
+__DESCRIPTION__
+
+---------------------------------------------------------
+for Lists of
+	Param + Return
+	Error
+	See Also
+	Tutorial	
+---------------------------------------------------------
+SubList            
+	SubListTitle
+	SubListItems
+
+__LIST_CLASS__
+__LIST_TITLE__
+__LIST_ITEMS__
+	
+	SubItem
+		SubItemTitle
+		SubItemName
+
+---------------------------------------------------------
+DefaultValue
+	Title
+	Value
+---------------------------------------------------------
+FuncParamList        eg. (param0, ..., paramN)
+DataType
+Attribute			e.g. Constructor, Static 

@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>__PAGE_TITLE__</title>
+
+    <link href="./Content/prettify-tomorrow.css" rel="stylesheet" />
+
+    <link href="./Content/tp.css" rel="stylesheet" />
+    <link href="./Content/Site.css" rel="stylesheet" />
+
+    <script src="./Scripts/prettify/prettify.js"></script> 
+    <script src="./Scripts/prettify/lang-css.js"></script> 
+    
+    <script src="./Scripts/tp.js"></script>
+    <script src="./Scripts/tp-ui.js"></script>
+</head>
+<body>
+    <header>__HEADER_TEXT__</header>
+    <main class="Main">
+        <nav class="SideBar">__SIDEBAR__</nav>
+        <div class="Splitter"></div>
+        <article class="Content">
+            <div id="divButton" style="display: none; justify-content: flex-end;">     
+                <button type="button" onclick="tp.AccordionsExpandCollapse()" style="padding: 6px 12px;">Expand/Collapse</button> 
+            </div>
+            __CONTENT__
+        </article>
+    </main>
+    <footer>
+        <div>__FOOTER_TEXT__</div>
+        <div>__DATE_TEXT__</div>
+    </footer>
+
+    <script>
+        tp.AccordionsExpandCollapse = null;
+        tp.Main = function () {
+            var i, ln, link;
+            new tp.Splitter('.Splitter', '.SideBar');
+            var tv = new tp.TreeView(null, '', '#tvSidebar');
+
+            var TreeViewExpandItem = function () {
+                var S, S2, Parents = [];
+                //S = location.href.substr(location.href.lastIndexOf('/') + 1);
+                S = location.href.toLowerCase();
+                var Links = tp.Select('a', tv.Handle);
+
+                var el = null;
+                for (i = 0, ln = Links.length; i < ln; i++) {
+                    S2 = Links[i].href.toLowerCase();
+                    if (S === S2) {
+                        el = Links[i];
+                        break;
+                    }
+                }
+
+                if (el) {
+
+                    while (el) {
+                        if (el.tagName.toLowerCase() === 'li') {
+                            Parents.push(el);
+                        }
+                        el = el.parentNode;
+                        if (el === tv.Handle)
+                            break;
+                    } 
+
+                    Parents.reverse();
+
+                    for (i = 0, ln = Parents.length; i < ln; i++) {
+                        el = Parents[i];
+                        tv.Expand(el);
+                    }
+                }
+            };
+
+            TreeViewExpandItem();
+
+
+            var Accordions = [];
+            var AccordionsExpanded = true;
+            var AccordionsExpandCollapse = function () {
+                if (Accordions.length > 0) {
+                    AccordionsExpanded = !AccordionsExpanded;
+                    for (var i = 0, ln = Accordions.length; i < ln; i++)
+                        Accordions[i].Expand(AccordionsExpanded, -1);
+                }
+            };
+            
+
+             
+
+            var CreateAccordion = function (el) {
+                if (el) {
+                    tp.AddClass(el, 'tp-Accordion');
+                    var Acc = new tp.Accordion(null, '', el);
+                    Accordions.push(Acc);
+                    Acc.AllowMultiExpand = true;
+
+                    if ('previousElementSibling' in el) {
+                        el = el.previousElementSibling;
+                        if (tp.IsElement(el)) {
+                            var AllExpanded = false;
+
+                            el.onclick = function () {
+                                AllExpanded = !AllExpanded;
+                                Acc.Expand(AllExpanded, -1);
+                            };
+
+                            el.onclick();
+                        }
+                    }
+                }
+            };
+   
+            
+            CreateAccordion(tp(".Content .Functions"));
+            CreateAccordion(tp(".Content .Callbacks"));
+            CreateAccordion(tp('.Content .Properties'));
+            CreateAccordion(tp('.Content .Fields'));
+            CreateAccordion(tp('.Content .Constants'));
+
+            if (Accordions.length > 0) {
+                tp.AccordionsExpandCollapse = AccordionsExpandCollapse;
+                var div = tp('#divButton');
+                div.style.display = 'flex';                
+            }
+
+
+            var RemoveEmptyCodeSpans = function () {
+                var i, ln, j, jln;
+                var SpanList, Example, Examples = tp.Select('.prettyprint');
+                for (j = 0, jln = Examples.length; j < jln; j++) {
+                    Example = Examples[j];
+
+                    SpanList = tp.Select('.pln', Example);
+                    SpanList[SpanList.length - 1].parentNode.removeChild(SpanList[SpanList.length - 1]);
+                    SpanList[0].parentNode.removeChild(SpanList[0]);
+                }
+
+
+            };
+
+
+            prettyPrint();
+            RemoveEmptyCodeSpans();
+        };
+
+        
+
+
+    </script>
+</body>
+</html>

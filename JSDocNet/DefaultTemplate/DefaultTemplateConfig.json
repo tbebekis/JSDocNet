@@ -1,0 +1,16 @@
+﻿{
+  "OutputFolder": ".\\DocDefault",
+  "DeleteExistingOutput": true,
+  "Template": "Default",
+  "IncludePathList": [ ".\\" ],
+  "IncludePattern": ".+\\.js?$",
+  "ExcludePattern": ".+(?i)es5\\.js|.+min\\.js|.+old*.+\\.js|.+polyfill*.+\\.js",
+  "DocTitle": "Default Doc Title",
+  "FooterText": "Documentation Footer",
+  "DisplayDate": true,
+  "TutorialsFolder": ".\\DocSource\\Tutorials",
+  "TutorialList": [
+    "Tutorial_tp|tp Tutorial|General"
+  ],
+  "HomePagePath": ".\\DocSource\\Index.html"
+}

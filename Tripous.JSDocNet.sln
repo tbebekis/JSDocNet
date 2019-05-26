@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.452
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSDocNet", "JSDocNet\JSDocNet.csproj", "{5B87523E-5997-40F4-A2EB-3BB66C220106}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5B87523E-5997-40F4-A2EB-3BB66C220106}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B87523E-5997-40F4-A2EB-3BB66C220106}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B87523E-5997-40F4-A2EB-3BB66C220106}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B87523E-5997-40F4-A2EB-3BB66C220106}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A2750DA2-BDFF-4F10-B0D3-572E4683139B}
+	EndGlobalSection
+EndGlobal
