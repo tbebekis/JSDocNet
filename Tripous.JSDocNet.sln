@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSDocNet", "JSDocNet\JSDocNet.csproj", "{5B87523E-5997-40F4-A2EB-3BB66C220106}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JSDocNet", "JSDocNet\JSDocNet.csproj", "{5B87523E-5997-40F4-A2EB-3BB66C220106}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSDocNet.Panel", "JSDocNet.Panel\JSDocNet.Panel.csproj", "{7DE97A84-168A-45A0-8226-7CAA72CDDB5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{5B87523E-5997-40F4-A2EB-3BB66C220106}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B87523E-5997-40F4-A2EB-3BB66C220106}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B87523E-5997-40F4-A2EB-3BB66C220106}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DE97A84-168A-45A0-8226-7CAA72CDDB5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DE97A84-168A-45A0-8226-7CAA72CDDB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DE97A84-168A-45A0-8226-7CAA72CDDB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DE97A84-168A-45A0-8226-7CAA72CDDB5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
